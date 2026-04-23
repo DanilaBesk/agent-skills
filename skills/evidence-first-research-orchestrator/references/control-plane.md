@@ -183,6 +183,22 @@ Subagents update the shared state file directly, but only in a narrow append-onl
 7. If a subagent sees that its `file_id` already exists, it must not append a second row for that file.
 8. If a stale-state conflict happens, the subagent should reread the state file and retry the append instead of editing arbitrary existing rows.
 
+## State Section Boundary Rule
+
+Subagents must append rows only inside the intended state section.
+
+- Source rows go only under `## Source Ledger`.
+- Every subagent output file, including normalizer and reviewer files, gets exactly one row under `## Subresearch Index`.
+- Reviewer steering rows go only under `## Iteration Review Log`.
+- Reviewer-generated prompts go only under `## Prompt Backlog`.
+- Normalization batch rows go only under `## Normalization Queue`.
+
+Rows must be inserted between the target section heading and the next `##` heading.
+If the template contains an `append-...-rows-here` marker, insert immediately above that marker and keep the marker in place.
+
+Wrong-section appends are invalid. In particular, normalizer output rows must never be placed under `## Iteration Review Log` or `## Prompt Backlog`.
+If the correct section cannot be found unambiguously, the subagent must set `state_append_status: blocked` and explain the blocker instead of guessing.
+
 ## Allowed State Values
 
 Use stable values so different subagents do not invent competing vocabularies.
@@ -324,6 +340,10 @@ Normalization is exhaustive, iterative, and corpus-wide.
    - `empty_with_reason`
 7. Do not start the last full synthesis pass while any indexed discovery file is still `pending`.
 8. The preferred normalization rhythm is batch-by-batch promotion into the final report, followed by a final whole-document harmonization pass.
+
+Normalizer subagents append their own output-file row to `## Subresearch Index` and, when they create a batch output, one batch row to `## Normalization Queue`.
+They do not append to reviewer sections.
+The orchestrator owns final status reconciliation for assigned input files unless the packet explicitly grants a narrower status-update task.
 
 ## Final Synthesis Rule
 

@@ -71,10 +71,12 @@ created_at:
 
 ## State File Update
 
+- state_sections_touched:
 - subresearch_index_row_appended:
 - source_keys_appended:
 - iteration_review_log_row_appended:
 - prompt_backlog_rows_appended:
+- normalization_queue_row_appended:
 - retry_or_conflict_notes:
 ```
 
@@ -90,6 +92,8 @@ created_at:
 8. Workers should report `state_append_status: appended` only after their own state-file rows were written.
 9. For `file_class: review`, `Next Research Prompts` must contain `3-5` prompts unless `continue_or_shift` explicitly says `shift_to_normalization` or `stop_for_exhaustion`.
 10. For `file_class: review`, the worker must stay near the core topic and may only use bounded drift that is justified in `theme_drift_note`.
+11. `state_sections_touched` must list the exact state sections that were appended.
+12. For `file_class: normalization`, `state_sections_touched` must not include `Iteration Review Log` or `Prompt Backlog`.
 
 ## Orchestrator Rejection Rule
 
@@ -102,6 +106,7 @@ Reject the file if any of these is true:
 - material findings omit `key_excerpt_or_datapoint` without reason;
 - contradictions were obviously flattened;
 - the file lacks a `State File Update` section;
+- `state_sections_touched` is missing or contains a section that does not match the file class;
 - a review file lacks `Review Questions`, `Next Research Prompts`, or `Iteration Control`;
 - a review file returns fewer than `3` prompts without an explicit stage-shift or exhaustion reason;
 - the worker ignored the assigned file set or topic slice;

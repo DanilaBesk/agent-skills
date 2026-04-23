@@ -51,6 +51,7 @@ Append-only by subagents for new source rows. Reconciliation is orchestrator-own
 
 | source_key | title | url_or_path | source_family | first_seen_in_file_id | first_seen_wave | reuse_status | last_checked_at | notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+<!-- append-source-ledger-rows-here -->
 
 ## Subresearch Index
 
@@ -58,21 +59,25 @@ Append-only by subagents for new file rows. Status corrections are orchestrator-
 
 | file_id | file_class | path | stage | wave | agent_id | role | topic_slice | source_keys | reviewed_sources_count | novelty | state_append_status | normalization_status | final_report_status | promoted_sections | short_summary |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+<!-- append-subresearch-index-rows-here -->
 
 ## Iteration Review Log
 
 | review_file_id | reviewed_file_ids | reviewer_agent_id | review_scope | recommended_next_batch_size | recommended_total_discovery_target | estimated_remaining_discovery_files | continue_or_shift | theme_drift_note | prompt_ids | notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+<!-- append-iteration-review-log-rows-here -->
 
 ## Prompt Backlog
 
 | prompt_id | parent_review_file_id | objective | why_now | suggested_source_directions | drift_bound | priority | status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+<!-- append-prompt-backlog-rows-here -->
 
 ## Normalization Queue
 
 | batch_id | theme | input_file_ids | output_file_id | status | promoted_sections | notes |
 | --- | --- | --- | --- | --- | --- | --- |
+<!-- append-normalization-queue-rows-here -->
 
 ## Final Synthesis Checklist
 
@@ -154,10 +159,12 @@ created_at:
 
 ## State File Update
 
+- state_sections_touched:
 - subresearch_index_row_appended:
 - source_keys_appended:
 - iteration_review_log_row_appended:
 - prompt_backlog_rows_appended:
+- normalization_queue_row_appended:
 - retry_or_conflict_notes:
 ```
 

@@ -58,6 +58,8 @@ State update scope:
 - append one Subresearch Index row
 - append reviewed Source Ledger rows
 - append review-log and prompt-backlog rows when this is a review packet
+- append normalization-queue rows only when this is a normalization packet
+- use only the matching state section; never append normalizer rows under review sections
 - do not rewrite counters or other file rows
 
 Reviewed file IDs:
