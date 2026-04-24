@@ -66,6 +66,12 @@ Read these files before running the workflow:
 - `references/final-output-contract.md`
 - `templates/artifact-templates.md`
 
+Then use these operational aids when available:
+
+- `examples/sample-run/` for a concrete discovery -> review -> normalization example
+- `scripts/update_state.py` for append-only state updates
+- `scripts/validate_research_run.py` before reviewer pass, before normalization handoff, and before closure
+
 ## Execution Loop
 
 1. Bootstrap:

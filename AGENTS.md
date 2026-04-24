@@ -16,6 +16,13 @@ This repository is the source workspace for custom agent skills.
 
 - Run `git diff --check` before committing.
 - After changing markdown links, run a link checker if one is added to this repository.
+- For `evidence-first-research-orchestrator`, prefer using its skill-local scripts instead of ad hoc state editing:
+
+```bash
+python3 skills/evidence-first-research-orchestrator/scripts/validate_research_run.py --state <path-to-state>
+python3 skills/evidence-first-research-orchestrator/scripts/update_state.py --state <path-to-state> --section <section> --row '<markdown-table-row>'
+```
+
 - After syncing a skill, compare repo and global copies with:
 
 ```bash
